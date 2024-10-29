@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+  - name: raw_data_circle
+    description: raw data from Circle, a French sportswear brand
+    tables:
+      - name: raw_cc_sales
+        description: sales of Circle
+  
+      - name: raw_cc_stock
+        description: inventory of Circle products
+
+models:
+  - name: stg_raw_data_circle__raw_cc_sales
+    description: sales of Circle
+    columns:
+      - name: date_date
+        description: date of sale
+      - name: product_id
+        description: id of product sold
+      - name: quantity
+        description: quantity of product sold
+
+  - name: stg_raw_data_circle__raw_cc_stock
+    description: raw data of Circle inventory (cleaned a bit)
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+      - name: model
+      - name: model_name
+      - name: color
+      - name: color_name
+      - name: size
+        tests:
+          - accepted_values:
+              values: ['XS','S','M','L','XL','XXL']
+      - name: forecast_stock
+      - name: stock
+      - name: price
